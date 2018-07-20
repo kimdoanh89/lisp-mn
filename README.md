@@ -10,9 +10,13 @@ openstack role add --project comet --user comet_admin admin
 openstack network create comet_inet
 openstack subnet create --network comet_inet --subnet-range 192.168.20.0/24 comet_isubnet
 ```
+## create router
 ```
 openstack router create comet_router
 openstack router set comet_router --external-gateway public
+```
+## create floating ip, keypair, security group
+```
 openstack floating ip create public
 openstack keypair create comet_keypair
 cd .ssh/
