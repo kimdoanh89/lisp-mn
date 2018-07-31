@@ -22,8 +22,17 @@ openstack keypair create comet_keypair
 cd .ssh/
 nano comet_identity //paste keypair that copied from previous step
 cd ..
+```
+## create security group
+```
 openstack security group create comet_secgroup
+```
+add security rule to the security group
+```
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol tcp --dst-port 22 --ingress comet_secgroup
+```
+## create flavor, boot instance
+```
 openstack flavor create --ram 1024 --disk 5 --vcpus 1 comet_flavor
 openstack image create --disk-format qcow2 --file xenial-server-cloudimg-amd64-disk1.img --public comet_image
 nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet vm1
