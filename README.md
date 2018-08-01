@@ -47,7 +47,9 @@ openstack router add subnet comet_router comet_isubnet
 cd .ssh/
 chmod 600 comet_identity
 cd ..
+```
 ## access the instance with ssh
+```
 ip netns list
 sudo ip netns exec qrouter-bfbb29f0-4184-4072-975a-dfec366ded20 ssh -i .ssh/comet_identity2 ubuntu@192.168.20.6
 ```
