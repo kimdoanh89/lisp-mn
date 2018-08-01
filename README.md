@@ -30,18 +30,24 @@ openstack security group create comet_secgroup
 add security rule to the security group
 ```
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol tcp --dst-port 22 --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --egress comet_secgroup
 ```
 ## create flavor, boot instance
 ```
 openstack flavor create --ram 1024 --disk 5 --vcpus 1 comet_flavor
 openstack image create --disk-format qcow2 --file xenial-server-cloudimg-amd64-disk1.img --public comet_image
 nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet vm1
+```
+## create and assign floating ip
+```
 openstack floating ip create public
 openstack server add floating ip vm1 172.24.4.8
 openstack router add subnet comet_router comet_isubnet
 cd .ssh/
 chmod 600 comet_identity
 cd ..
+## access the instance with ssh
 ip netns list
 sudo ip netns exec qrouter-bfbb29f0-4184-4072-975a-dfec366ded20 ssh -i .ssh/comet_identity2 ubuntu@192.168.20.6
 ```
