@@ -58,6 +58,9 @@ openstack network create comet_enet
 openstack subnet create --network comet_enet --subnet-range 192.168.248.0/24 --dns-nameserver 8.8.8.8 --gateway 192.168.248.2 comet_esubnet 
 openstack router create router2
 openstack router set router2 --external-gateway comet_enet
+```
+## create second internal network, vm2
+```
 openstack network create comet_inet2
 openstack subnet create --network comet_inet2 --subnet-range 192.168.30.0/24 comet_isubnet2
 openstack router add subnet router2 comet_isubnet2
@@ -65,4 +68,15 @@ nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --s
 openstack floating ip create comet_enet
 openstack server add floating ip vm2 192.168.248.5
 sudo ip netns exec qrouter-17efa51e-42f3-4a8c-b38e-4ff264145a52 ssh -i .ssh/comet_identity2 ubuntu@192.168.30.9
+```
+
+## create third internal network, vm3
+```
+openstack network create comet_inet3
+openstack subnet create --network comet_inet3 --subnet-range 192.168.40.0/24 comet_isubnet3
+openstack router add subnet router2 comet_isubnet3
+nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet3 vm3
+openstack floating ip create comet_enet
+openstack server add floating ip vm3 192.168.248.6
+sudo ip netns exec qrouter-17efa51e-42f3-4a8c-b38e-4ff264145a52 ssh -i .ssh/comet_identity2 ubuntu@192.168.40.10
 ```
