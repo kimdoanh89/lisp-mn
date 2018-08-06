@@ -41,9 +41,9 @@ nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --s
 ```
 ## create and assign floating ip
 ```
+openstack router add subnet comet_router comet_isubnet
 openstack floating ip create public
 openstack server add floating ip vm1 172.24.4.8
-openstack router add subnet comet_router comet_isubnet
 cd .ssh/
 chmod 600 comet_identity
 cd ..
@@ -55,8 +55,14 @@ sudo ip netns exec qrouter-bfbb29f0-4184-4072-975a-dfec366ded20 ssh -i .ssh/come
 ```
 ```
 openstack network create comet_enet
-openstack subnet create --network comet_enet --subnet-range 192.168.248.0/24 --dns-nameserver 8.8.8.8 --gateway 192.168.248.1 comet_esubnet 
-openstack router set comet_router --external-gateway comet_enet
+openstack subnet create --network comet_enet --subnet-range 192.168.248.0/24 --dns-nameserver 8.8.8.8 --gateway 192.168.248.2 comet_esubnet 
+openstack router create router2
+openstack router set router2 --external-gateway comet_enet
+openstack network create comet_inet2
+openstack subnet create --network comet_inet2 --subnet-range 192.168.30.0/24 comet_isubnet2
+openstack router add subnet router2 comet_isubnet2
+nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet2 vm2
 openstack floating ip create comet_enet
-nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet vm2
+openstack server add floating ip vm2 192.168.248.5
+sudo ip netns exec qrouter-17efa51e-42f3-4a8c-b38e-4ff264145a52 ssh -i .ssh/comet_identity2 ubuntu@192.168.30.9
 ```
