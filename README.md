@@ -55,7 +55,7 @@ sudo ip netns exec qrouter-bfbb29f0-4184-4072-975a-dfec366ded20 ssh -i .ssh/come
 ```
 ```
 openstack network create comet_enet
-openstack subnet create --network comet_enet --subnet-range 192.168.248.0/24 --dns-nameserver 8.8.4.4 --gateway 192.168.248.1 comet_esubnet 
+openstack subnet create --network comet_enet --subnet-range 192.168.248.0/24 --dns-nameserver 8.8.8.8 --gateway 192.168.248.1 comet_esubnet 
 openstack router set comet_router --external-gateway comet_enet
 openstack floating ip create comet_enet
 nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet vm2
