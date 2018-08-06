@@ -8,3 +8,7 @@ delete the netem, routing setting
 sudo tc qdisc del dev ens37 root netem
 sudo tc qdisc del dev ens38 root netem
 ```
+To verify the command set the rule run tc -s
+```
+
+```
