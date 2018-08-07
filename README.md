@@ -80,3 +80,19 @@ openstack floating ip create comet_enet
 openstack server add floating ip vm3 192.168.248.6
 sudo ip netns exec qrouter-17efa51e-42f3-4a8c-b38e-4ff264145a52 ssh -i .ssh/comet_identity2 ubuntu@192.168.40.10
 ```
+### create provider network
+```
+openstack network create  --share --external --provider-physical-network provider --provider-network-type flat provider
+```
+
+### adding dns 
+```
+sudo nano /etc/resolv.conf
+```
+the file as follows:
+```
+nameserver 143.53.133.130 143.53.133.132 8.8.4.4
+search localdomain
+
+
+```
