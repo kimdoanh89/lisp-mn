@@ -86,7 +86,10 @@ openstack network create  --share --external --provider-physical-network provide
 ```
 
 ### adding dns 
+The file /etc/resolv.conf is automatically overwritten. To prevent this, modify the base and update with sudo resolvconf -u
 ```
+sudo nano /etc/resolvconf/resolv.conf.d/base
+sudo resolvconf -u
 sudo nano /etc/resolv.conf
 ```
 the file as follows:
