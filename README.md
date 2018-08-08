@@ -97,7 +97,12 @@ search localdomain
 Access the vm1
 ```
 sudo ip netns exec qrouter-6c27dec6-485f-4f02-83d7-f237848f04e9 ssh -i .ssh/comet_identity3 ubuntu@10.0.0.6
-
-neutron subnet-update --dns-nameserver 8.8.8.8,8.8.4.4,143.53.133.130,143.53.133.132 public
-
+```
+fix unable to resolve host.
+Two things to check (assuming your machine is called my-machine, you can change this as appropriate):
+That the /etc/hostname file contains just the name of the machine.
+That /etc/hosts has an entry for localhost. It should have something like:
+```
+127.0.0.1 localhost
+127.0.1.1 vm1
 ```
