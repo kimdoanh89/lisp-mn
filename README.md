@@ -129,3 +129,12 @@ reboot your system after adding these lines.
     net.ipv4.conf.all.rp_filter=0
     net.ipv4.ip_forward=1
     net.ipv6.conf.all.forwarding=1
+
+Download and install ODL
+
+    wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/karaf/0.8.2/karaf-0.8.2.zip
+    sudo apt-get install unzip
+    unzip karaf-0.8.2.zip
+    
+    
+add 
