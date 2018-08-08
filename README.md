@@ -108,3 +108,24 @@ Fix unable to resolve host. Two things to check (assuming your machine is called
 127.0.0.1 localhost
 127.0.1.1 vm1
 ```
+
+### Prepare the vm1 with oor, odl ...
+Git clone oor and install Software Prerequisites
+```
+git clone https://github.com/OpenOverlayRouter/oor
+sudo apt-get install build-essential git-core libconfuse-dev gengetopt libcap2-bin libzmq3-dev libxml2-dev
+```
+Install oor
+```
+cd oor
+sudo make install
+```
+
+You can instruct your system to auto-configure these values during system
+boot-up if you add the following lines to `/etc/sysctl.conf`. Remember to 
+reboot your system after adding these lines.
+
+    net.ipv4.conf.default.rp_filter=0
+    net.ipv4.conf.all.rp_filter=0
+    net.ipv4.ip_forward=1
+    net.ipv6.conf.all.forwarding=1
