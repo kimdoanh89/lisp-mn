@@ -175,3 +175,6 @@ openstack floating ip create public
 openstack server add floating ip vm3 172.24.4.21
 sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d ssh -i .ssh/comet_identity ubuntu@12.0.0.7
 ```
+### Setting vm1, vm2, vm3 for oor client, odl controller, and oor server, respectively
+- Edit file `oor.conf.client`
+- Running with `oor -f /etc/oor.conf.client`
