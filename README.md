@@ -32,6 +32,8 @@ add security rule to the security group
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol tcp --dst-port 22 --ingress comet_secgroup
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --ingress comet_secgroup
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --egress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --egress comet_secgroup
 ```
 ## create flavor, boot instance
 ```
