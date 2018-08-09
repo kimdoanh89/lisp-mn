@@ -149,5 +149,29 @@ Source `/etc/environment`
 
     source /etc/environment
     
-
-
+### Prepare and create more instances
+Acesss instance vm1
+```
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d ssh -i .ssh/comet_identity ubuntu@10.0.0.5
+```
+Create `vm1_snapshot` image using Horizon
+Create and launch vm2 for ODL
+```
+openstack network create private2
+openstack subnet create --network private2 --subnet-range 11.0.0.0/24 private2_sub
+openstack router add subnet router1 private2_sub
+nova boot --image vm1_snapshot --flavor ds2G --key-name comet_keypair --security-group comet_secgroup --nic net-name=private2 vm2
+openstack floating ip create public
+openstack server add floating ip vm2 172.24.4.7
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d ssh -i .ssh/comet_identity ubuntu@11.0.0.11
+```
+Create and launch vm3 for server
+```
+openstack network create private3
+openstack subnet create --network private3 --subnet-range 12.0.0.0/24 private3_sub
+openstack router add subnet router1 private3_sub
+nova boot --image vm1_snapshot --flavor ds1G --key-name comet_keypair --security-group comet_secgroup --nic net-name=private3 vm3
+openstack floating ip create public
+openstack server add floating ip vm3 172.24.4.21
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d ssh -i .ssh/comet_identity ubuntu@12.0.0.7
+```
