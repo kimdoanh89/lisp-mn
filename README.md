@@ -135,6 +135,19 @@ Download and install ODL
     wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/karaf/0.8.2/karaf-0.8.2.zip
     sudo apt-get install unzip
     unzip karaf-0.8.2.zip
+ODL needs JAVA to run. Download openjdk-8-jdk and set up the JAVA_HOME in '/etc/environment'
+
+    sudo apt-get purge openjdk-\*
+    sudo add-apt-repository ppa:openjdk-r/ppa  
+    sudo apt-get update   
+    sudo apt-get install openjdk-8-jdk
     
+Add JAVA_HOME in 'sudo gedit /etc/environment'    
+        
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+Source '/etc/environment'
+
+    source /etc/environment
     
-add 
+
+
