@@ -187,11 +187,11 @@ feature:install odl-lispflowmapping-msmr
 ```
 - Define a key and EID prefix association in OpenDaylight using the RPC REST API for the client EID (1.1.1.1/32) to allow registration from the southbound. Since the mappings for the server EID will be configured from the REST API, no such association is necessary. Run the below command on the controller (or any machine that can reach controller, by replacing localhost with the IP address of controller).
 ```
-sudo curl -u "admin":"admin" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/ --data @add-key.json
+sudo curl -u "ubuntu":"ubuntu" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/ --data @add-key.json
 ```
 - Verify that the key is added properly by requesting the following URL:
 ```
-curl -u "admin":"admin" -H "Content-type: application/json" -X GET http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2
+curl -u "ubuntu":"ubuntu" -H "Content-type: application/json" -X GET http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/
 ```
 ### Setting vm3 as oor server
 - Edit file `oor.conf.server`
