@@ -154,6 +154,18 @@ Source `/etc/environment`
 ### Prepare and create more instances
 Acesss instance vm1
 ```
+openstack keypair create comet_keypair
+cd .ssh/
+nano comet_identity //paste keypair that copied from previous step
+chmod 600 comet_identity
+openstack security group create comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol tcp --dst-port 22 --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --egress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --ingress comet_secgroup
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --egress comet_secgroup
+openstack image create --disk-format qcow2 --file xenial-server-cloudimg-amd64-disk1.img --public comet_image
+nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=comet_inet 
 sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d ssh -i .ssh/comet_identity ubuntu@10.0.0.5
 ```
 Create `vm1_snapshot` image using Horizon
