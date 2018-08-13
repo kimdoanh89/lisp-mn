@@ -168,7 +168,7 @@ openstack image create --disk-format qcow2 --file xenial-server-cloudimg-amd64-d
 nova boot --image vm1_snapshot --flavor ds1G  --key-name comet_keypair --security-group default --nic net-name=private vm1
 openstack floating ip create public
 openstack server add floating ip vm1 172.24.4.13
-sudo ip netns exec qrouter-a8b62112-8462-4569-88b9-8398522b3886 ssh -i .ssh/comet_identity ubuntu@10.0.0.10
+sudo ip netns exec qrouter-161c768c-637d-4c11-a30b-6562805321b2 ssh -i .ssh/comet_identity ubuntu@10.0.0.15
 sudo ip netns exec qrouter-a8b62112-8462-4569-88b9-8398522b3886 ssh -i .ssh/comet_identity ubuntu@11.0.0.7
 ```
 Create `vm1_snapshot` image using Horizon
