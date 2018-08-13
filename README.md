@@ -165,10 +165,11 @@ openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --egr
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --ingress comet_secgroup
 openstack security group rule create --remote-ip 0.0.0.0/0 --protocol udp --egress comet_secgroup
 openstack image create --disk-format qcow2 --file xenial-server-cloudimg-amd64-disk1.img --public comet_image
-nova boot --image comet_image --flavor comet_flavor --key-name comet_keypair --security-group comet_secgroup --nic net-name=private vm1
+nova boot --image vm1_snapshot --flavor ds1G  --key-name comet_keypair --security-group default --nic net-name=private vm1
 openstack floating ip create public
 openstack server add floating ip vm1 172.24.4.13
-sudo ip netns exec qrouter-a8b62112-8462-4569-88b9-8398522b3886 ssh -i .ssh/comet_identity ubuntu@10.0.0.3
+sudo ip netns exec qrouter-a8b62112-8462-4569-88b9-8398522b3886 ssh -i .ssh/comet_identity ubuntu@10.0.0.10
+sudo ip netns exec qrouter-a8b62112-8462-4569-88b9-8398522b3886 ssh -i .ssh/comet_identity ubuntu@11.0.0.7
 ```
 Create `vm1_snapshot` image using Horizon
 Create and launch vm2 for ODL
@@ -203,11 +204,13 @@ feature:install odl-lispflowmapping-msmr
 ```
 - Define a key and EID prefix association in OpenDaylight using the RPC REST API for the client EID (1.1.1.1/32) to allow registration from the southbound. Since the mappings for the server EID will be configured from the REST API, no such association is necessary. Run the below command on the controller (or any machine that can reach controller, by replacing localhost with the IP address of controller).
 ```
-sudo curl -u "ubuntu":"ubuntu" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/ --data @add-key.json
+sudo curl -u "admin":"admin" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/ --data @add-key.json
 ```
 - Verify that the key is added properly by requesting the following URL:
 ```
-curl -u "ubuntu":"ubuntu" -H "Content-type: application/json" -X GET http://localhost:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/
+curl -u "admin":"admin" -H "Content-type: application/json" -X GET http://192.168.248.131:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/
+
+curl -u "admin":"admin" -H "Content-type: application/json" -X PUT     http://192.168.248.131:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/mapping/ipv4:2.2.2.2%2f32/northbound/     --data @mapping.json
 ```
 ### Setting vm3 as oor server
 - Edit file `oor.conf.server`
