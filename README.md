@@ -215,3 +215,14 @@ curl -u "admin":"admin" -H "Content-type: application/json" -X PUT     http://19
 ### Setting vm3 as oor server
 - Edit file `oor.conf.server`
 - Running with `oor -f /etc/oor.conf.server`
+
+### HANDOVER
+```
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d curl -u "admin":"admin" -H "Content-type: application/json" -X PUT http://11.0.0.11:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/ --data @add-key.json
+
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d curl -u "admin":"admin" -H "Content-type: application/json" -X GET http://11.0.0.11:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/authentication-key/ipv4:1.1.1.1%2f32/
+
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d curl -u "admin":"admin" -H "Content-type: application/json" -X PUT http://11.0.0.11:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/mapping/ipv4:2.2.2.2%2f32/northbound/     --data @mapping.json
+
+sudo ip netns exec qrouter-b571e023-f79d-44ad-906c-44a4597bf28d curl -u "admin":"admin" -H "Content-type: application/json" -X GET http://11.0.0.11:8181/restconf/config/odl-mappingservice:mapping-database/virtual-network-identifier/0/mapping/ipv4:2.2.2.2%2f32/northbound/
+```
