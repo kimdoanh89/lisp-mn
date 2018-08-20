@@ -14,13 +14,17 @@ To verify the command set the rule run tc -s
 ```
 ## Testbed
 For BGAN, AeroMACS delays, respectively
-- Forward link, on the router:
+- Forward link:
+- On the router1:
 ```
-sudo tc qdisc add dev ens39 root netem delay 170ms
-sudo tc qdisc add dev ens40 root netem delay 25ms
+sudo tc qdisc add dev ens38 root netem delay 170ms
+```
+- On the router2:
+```
+sudo tc qdisc add dev ens37 root netem delay 50ms
 ```
 - Return link, on the aircraft:
 ```
 sudo tc qdisc add dev ens37 root netem delay 170ms
-sudo tc qdisc add dev ens38 root netem delay 25ms
+sudo tc qdisc add dev ens38 root netem delay 50ms
 ```
