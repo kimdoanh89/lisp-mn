@@ -15,3 +15,13 @@ Install anaconda linux
 chmod +x Anaconda3-5.2.0-Linux-x86_64.sh
 bash Anaconda3-5.2.0-Linux-x86_64.sh
 ```
+Download Qt in ubuntu
+```
+https://www.qt.io/download#section-2
+```
+
+Instal Qt
+```
+chmod +x qt-unified-linux-x64-3.0.5-online.run
+./qt-unified-linux-x64-3.0.5-online.run
+```
