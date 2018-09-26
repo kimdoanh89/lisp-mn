@@ -25,3 +25,12 @@ Instal Qt
 chmod +x qt-unified-linux-x64-3.0.5-online.run
 ./qt-unified-linux-x64-3.0.5-online.run
 ```
+
+
+ssh without password
+```
+http://www.linuxproblem.org/art_9.html
+ssh-keygen -t rsa
+ssh b@B mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh b@B 'cat >> .ssh/authorized_keys'
+```
