@@ -34,3 +34,8 @@ ssh-keygen -t rsa
 ssh b@B mkdir -p .ssh
 cat .ssh/id_rsa.pub | ssh b@B 'cat >> .ssh/authorized_keys'
 ```
+Open python3 and import Qt 
+```
+python3
+from PyQt5 import QtCore, QtGui, QtWidgets
+```
