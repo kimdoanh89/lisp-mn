@@ -39,3 +39,7 @@ Open python3 and import Qt
 python3
 from PyQt5 import QtCore, QtGui, QtWidgets
 ```
+## Building python execute gui
+```
+C:\ProgramData\Anaconda3\Library\bin>pyuic5 calc_tax.ui -o calc_tax.py -x
+```
